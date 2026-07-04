@@ -92,6 +92,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#12122a" },
+      { name: "twitter:title", content: "EMEK+ | Emekçinin Dijital Koruyucu Kalkanı" },
+      { name: "description", content: "EMEK+, işçiden öğretmene, kamu çalışanından esnafa herkesin haklarını koruyan dijital kalkan ve kariyer ortağı. Maaş hesapla, sözleşme incele, avukat ve psikolojik destek al." },
+      { property: "og:description", content: "EMEK+, işçiden öğretmene, kamu çalışanından esnafa herkesin haklarını koruyan dijital kalkan ve kariyer ortağı. Maaş hesapla, sözleşme incele, avukat ve psikolojik destek al." },
+      { name: "twitter:description", content: "EMEK+, işçiden öğretmene, kamu çalışanından esnafa herkesin haklarını koruyan dijital kalkan ve kariyer ortağı. Maaş hesapla, sözleşme incele, avukat ve psikolojik destek al." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c003832c-153d-4abe-8a32-b7cd4f395f8e/id-preview-c827e537--dcaa393a-3b5a-4d33-b9fc-acb5c04e85e9.lovable.app-1783203064901.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c003832c-153d-4abe-8a32-b7cd4f395f8e/id-preview-c827e537--dcaa393a-3b5a-4d33-b9fc-acb5c04e85e9.lovable.app-1783203064901.png" },
     ],
     links: [
       {
