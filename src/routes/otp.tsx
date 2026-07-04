@@ -5,7 +5,7 @@ import { ArrowLeft, RefreshCw } from "lucide-react";
 import { Logo } from "@/components/emek/Logo";
 
 const searchSchema = z.object({
-  phone: z.coerce.string().optional().default(""),
+  phone: z.preprocess((v) => (v == null ? "" : String(v)), z.string()),
 });
 
 export const Route = createFileRoute("/otp")({
