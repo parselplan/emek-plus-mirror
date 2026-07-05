@@ -24,10 +24,9 @@ function Login() {
   const [isSending, setIsSending] = useState(false);
 
   const formatted = phone.replace(/\D/g, "").slice(0, 10);
-  const display = formatted
-    .replace(/(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})/, (_m, a, b, c, d) =>
-      [a, b, c, d].filter(Boolean).join(" "),
-    );
+  const display = formatted.replace(/(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})/, (_m, a, b, c, d) =>
+    [a, b, c, d].filter(Boolean).join(" "),
+  );
   const valid = formatted.length === 10;
 
   const requestOtp = async () => {
@@ -128,8 +127,7 @@ function Login() {
           </p>
 
           <p className="px-4 text-center text-[11px] leading-relaxed text-muted-foreground/70">
-            Devam ederek{" "}
-            <span className="text-foreground/80 underline">Kullanım Koşulları</span> ve{" "}
+            Devam ederek <span className="text-foreground/80 underline">Kullanım Koşulları</span> ve{" "}
             <span className="text-foreground/80 underline">KVKK Aydınlatma Metni</span>'ni kabul
             etmiş olursun.
           </p>

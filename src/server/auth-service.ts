@@ -1,6 +1,7 @@
 import type { AuthSession, PublicSession } from "@/lib/auth-types";
 import { AuthError } from "@/lib/auth-errors";
 import { consumeOtp, saveOtp } from "@/server/auth-otp-store";
+import { logDevOtp } from "@/server/dev-otp";
 
 const OTP_TTL_MS = 5 * 60 * 1000;
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
@@ -49,10 +50,7 @@ export async function sendOtpToPhone(phone: string): Promise<{ ok: true }> {
 
   const code = generateOtp();
   saveOtp(phone, code, Date.now() + OTP_TTL_MS);
-
-  if (process.env.NODE_ENV !== "production") {
-    console.info(`[EMEK+ dev OTP] +90${phone}: ${code}`);
-  }
+  logDevOtp(phone, code);
 
   return { ok: true };
 }
@@ -113,9 +111,7 @@ export async function verifyOtpCode(phone: string, code: string): Promise<AuthSe
   };
 }
 
-export async function resolveSessionFromExternalApi(): Promise<
-  PublicSession | null | undefined
-> {
+export async function resolveSessionFromExternalApi(): Promise<PublicSession | null | undefined> {
   const baseUrl = getAuthApiBaseUrl();
   if (!baseUrl) return undefined;
 

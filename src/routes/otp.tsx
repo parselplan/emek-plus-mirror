@@ -47,9 +47,7 @@ function Otp() {
     return () => clearInterval(t);
   }, [seconds]);
 
-  const maskedPhone = phone
-    ? `+90 ${phone.slice(0, 3)} ${phone.slice(3, 6)} ** **`
-    : "telefonuna";
+  const maskedPhone = phone ? `+90 ${phone.slice(0, 3)} ${phone.slice(3, 6)} ** **` : "telefonuna";
 
   const filled = code.every((c) => c !== "");
   const otpValue = code.join("");
@@ -146,8 +144,8 @@ function Otp() {
         <Logo size="md" />
         <h1 className="mt-8 text-2xl font-bold text-foreground">Doğrulama Kodu</h1>
         <p className="mt-2 max-w-[18rem] text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">{maskedPhone}</span> numarasına gönderdiğimiz
-          6 haneli kodu gir.
+          <span className="font-semibold text-foreground">{maskedPhone}</span> numarasına
+          gönderdiğimiz 6 haneli kodu gir.
         </p>
       </div>
 
@@ -176,13 +174,17 @@ function Otp() {
         ))}
       </div>
 
-      {error ? <p className="mt-4 text-center text-sm font-medium text-destructive">{error}</p> : null}
+      {error ? (
+        <p className="mt-4 text-center text-sm font-medium text-destructive">{error}</p>
+      ) : null}
 
       <div className="mt-6 text-center text-sm text-muted-foreground">
         {seconds > 0 ? (
           <span>
             Kodu tekrar gönder:{" "}
-            <span className="font-semibold text-foreground">0:{String(seconds).padStart(2, "0")}</span>
+            <span className="font-semibold text-foreground">
+              0:{String(seconds).padStart(2, "0")}
+            </span>
           </span>
         ) : (
           <button
@@ -190,7 +192,11 @@ function Otp() {
             disabled={isResending || isVerifying}
             className="inline-flex items-center gap-1.5 font-bold text-orange disabled:opacity-50"
           >
-            {isResending ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
+            {isResending ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <RefreshCw className="h-4 w-4" />
+            )}
             Kodu Tekrar Gönder
           </button>
         )}

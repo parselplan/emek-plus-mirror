@@ -1,8 +1,4 @@
-import {
-  clearSession,
-  getSession,
-  updateSession,
-} from "@tanstack/react-start/server";
+import { clearSession, getSession, updateSession } from "@tanstack/react-start/server";
 
 import type { AuthSession, EmekSessionData, PublicSession } from "@/lib/auth-types";
 
@@ -10,8 +6,7 @@ const THIRTY_DAYS_SEC = 30 * 24 * 60 * 60;
 
 function getSessionConfig() {
   const password =
-    process.env.SESSION_SECRET?.trim() ||
-    "dev-emek-plus-session-secret-change-in-production";
+    process.env.SESSION_SECRET?.trim() || "dev-emek-plus-session-secret-change-in-production";
 
   return {
     name: "emek-auth",

@@ -37,9 +37,7 @@ export const verifyOtp = createServerFn({ method: "POST" })
     const { verifyOtpCode } = await import("@/server/auth-service");
     const { writeSecureSession, toPublicSession } = await import("@/server/secure-session");
 
-    const fullSession: AuthSession = await runAuth(() =>
-      verifyOtpCode(data.phone, data.code),
-    );
+    const fullSession: AuthSession = await runAuth(() => verifyOtpCode(data.phone, data.code));
     await writeSecureSession(fullSession);
     return toPublicSession(fullSession);
   });

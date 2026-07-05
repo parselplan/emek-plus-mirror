@@ -102,7 +102,9 @@
   --gradient-violet: linear-gradient(135deg, oklch(0.65 0.24 300), oklch(0.5 0.22 285));
   --gradient-blue: linear-gradient(135deg, oklch(0.64 0.2 258), oklch(0.5 0.2 268));
   --gradient-green: linear-gradient(135deg, oklch(0.7 0.16 168), oklch(0.55 0.15 175));
-  --gradient-app: radial-gradient(120% 80% at 50% -10%, oklch(0.26 0.09 285 / 0.7), transparent 60%), linear-gradient(180deg, oklch(0.17 0.05 268), oklch(0.13 0.04 265));
+  --gradient-app:
+    radial-gradient(120% 80% at 50% -10%, oklch(0.26 0.09 285 / 0.7), transparent 60%),
+    linear-gradient(180deg, oklch(0.17 0.05 268), oklch(0.13 0.04 265));
   --gradient-card: linear-gradient(160deg, oklch(0.24 0.055 268), oklch(0.19 0.05 265));
 
   /* Shadows / glows */

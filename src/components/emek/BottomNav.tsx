@@ -49,10 +49,7 @@ export function BottomNav({ active = "Ana Sayfa" }: { active?: string }) {
                 className="flex flex-1 flex-col items-center gap-1 py-1"
               >
                 <Icon
-                  className={cn(
-                    "h-5 w-5",
-                    isActive ? "text-orange" : "text-muted-foreground",
-                  )}
+                  className={cn("h-5 w-5", isActive ? "text-orange" : "text-muted-foreground")}
                 />
                 <span
                   className={cn(

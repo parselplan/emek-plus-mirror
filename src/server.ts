@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { readDevOtpForPhone } from "./server/dev-otp";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -44,9 +45,30 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+function tryDevOtpResponse(request: Request): Response | null {
+  const url = new URL(request.url);
+  if (request.method !== "GET" || url.pathname !== "/api/dev/otp") {
+    return null;
+  }
+
+  const result = readDevOtpForPhone(
+    url.searchParams.get("phone") ?? "",
+    url.searchParams.get("secret"),
+  );
+
+  if (!result.ok) {
+    return Response.json({ error: result.message }, { status: result.status });
+  }
+
+  return Response.json({ phone: result.phone, code: result.code });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const devOtpResponse = tryDevOtpResponse(request);
+      if (devOtpResponse) return devOtpResponse;
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
