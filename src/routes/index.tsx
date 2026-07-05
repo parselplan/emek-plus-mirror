@@ -1,9 +1,16 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import shieldHero from "@/assets/shield-hero.jpg";
 import { Logo } from "@/components/emek/Logo";
+import { getCurrentSession } from "@/lib/auth-fns";
 
 export const Route = createFileRoute("/")({
+  beforeLoad: async () => {
+    const session = await getCurrentSession();
+    if (session) {
+      throw redirect({ to: "/home" });
+    }
+  },
   component: Splash,
 });
 
@@ -42,7 +49,10 @@ function Splash() {
 
       <div className="absolute bottom-12 flex flex-col items-center gap-3">
         <div className="h-1.5 w-32 overflow-hidden rounded-full bg-muted">
-          <div className="h-full w-1/2 rounded-full bg-gradient-orange" style={{ animation: "fade-up 2.4s ease-in-out infinite alternate" }} />
+          <div
+            className="h-full w-1/2 rounded-full bg-gradient-orange"
+            style={{ animation: "fade-up 2.4s ease-in-out infinite alternate" }}
+          />
         </div>
         <span className="text-xs text-muted-foreground">Hakların bizimle güvende</span>
       </div>

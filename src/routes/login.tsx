@@ -1,16 +1,27 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Phone, ArrowRight, ShieldCheck } from "lucide-react";
+import { Phone, ArrowRight, ShieldCheck, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+
 import { Logo } from "@/components/emek/Logo";
+import { getCurrentSession, sendOtp } from "@/lib/auth-fns";
+import { toAuthMessage } from "@/lib/auth-errors";
 import shieldHero from "@/assets/shield-hero.jpg";
 
 export const Route = createFileRoute("/login")({
+  beforeLoad: async () => {
+    const session = await getCurrentSession();
+    if (session) {
+      throw redirect({ to: "/home" });
+    }
+  },
   component: Login,
 });
 
 function Login() {
   const navigate = useNavigate();
   const [phone, setPhone] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const formatted = phone.replace(/\D/g, "").slice(0, 10);
   const display = formatted
@@ -19,9 +30,24 @@ function Login() {
     );
   const valid = formatted.length === 10;
 
+  const requestOtp = async () => {
+    if (!valid || isSending) return;
+
+    setIsSending(true);
+    try {
+      await sendOtp({ data: { phone: formatted } });
+      toast.success("Doğrulama kodu gönderildi.");
+      navigate({ to: "/otp", search: { phone: formatted } });
+    } catch (error) {
+      toast.error(toAuthMessage(error));
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (valid) navigate({ to: "/otp", search: { phone: formatted } });
+    void requestOtp();
   };
 
   return (
@@ -73,19 +99,29 @@ function Login() {
         <div className="mt-auto flex flex-col gap-4 pt-10">
           <button
             type="submit"
-            disabled={!valid}
+            disabled={!valid || isSending}
             className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-orange py-4 text-base font-bold text-orange-foreground shadow-glow-orange transition-transform active:scale-[0.98] disabled:opacity-40 disabled:shadow-none"
           >
-            Hemen Başla
-            <ArrowRight className="h-5 w-5" />
+            {isSending ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Kod Gönderiliyor...
+              </>
+            ) : (
+              <>
+                Hemen Başla
+                <ArrowRight className="h-5 w-5" />
+              </>
+            )}
           </button>
 
           <p className="text-center text-sm text-muted-foreground">
             Zaten hesabın var mı?{" "}
             <button
               type="button"
-              onClick={() => valid && navigate({ to: "/otp", search: { phone: formatted } })}
-              className="font-bold text-orange"
+              disabled={!valid || isSending}
+              onClick={() => void requestOtp()}
+              className="font-bold text-orange disabled:opacity-40"
             >
               Giriş Yap
             </button>

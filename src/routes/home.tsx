@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import {
   Bell,
   Wallet,
@@ -37,21 +37,38 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/emek/Logo";
 import { BottomNav } from "@/components/emek/BottomNav";
+import { useAuth } from "@/hooks/use-auth";
+import { getCurrentSession } from "@/lib/auth-fns";
 import shieldHero from "@/assets/shield-hero.jpg";
 import aiAssistant from "@/assets/ai-assistant.png";
 
 export const Route = createFileRoute("/home")({
+  beforeLoad: async () => {
+    const session = await getCurrentSession();
+    if (!session) {
+      throw redirect({ to: "/login" });
+    }
+    return { session };
+  },
   component: Home,
 });
 
+function formatPhone(phone: string) {
+  return phone.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");
+}
+
 function Home() {
+  const { session } = useAuth();
+  const displayName = session?.user.phone
+    ? `+90 ${formatPhone(session.user.phone)}`
+    : "Hoş geldin!";
   return (
     <div className="app-frame pb-28">
       {/* Header */}
       <header className="flex items-center justify-between px-5 pt-12">
         <div>
           <p className="text-sm text-muted-foreground">Merhaba,</p>
-          <h1 className="text-xl font-bold text-foreground">Hoş geldin! 👋</h1>
+          <h1 className="text-xl font-bold text-foreground">{displayName} 👋</h1>
         </div>
         <div className="flex items-center gap-3">
           <Logo size="sm" />
