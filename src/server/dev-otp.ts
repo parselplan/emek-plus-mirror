@@ -1,6 +1,16 @@
 import { peekOtp } from "@/server/auth-otp-store";
 
 const DEFAULT_DEV_OTP_SECRET = "emek-dev-otp-local";
+export const DEV_FIXED_OTP = "123456";
+
+export function isDevFixedOtpEnabled(): boolean {
+  if (process.env.AUTH_API_BASE_URL?.trim()) return false;
+  return process.env.NODE_ENV !== "production";
+}
+
+export function resolveOtpCode(): string {
+  return isDevFixedOtpEnabled() ? DEV_FIXED_OTP : String(Math.floor(100000 + Math.random() * 900000));
+}
 
 export function isDevOtpExposureEnabled(): boolean {
   if (process.env.AUTH_API_BASE_URL?.trim()) return false;
@@ -35,6 +45,9 @@ export function readDevOtpForPhone(
   }
 
   const code = peekOtp(phone);
+  if (!code && isDevFixedOtpEnabled()) {
+    return { ok: true, phone, code: DEV_FIXED_OTP };
+  }
   if (!code) {
     return { ok: false, status: 404, message: "No active OTP for this phone." };
   }

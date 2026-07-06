@@ -1,7 +1,7 @@
 import type { AuthSession, PublicSession } from "@/lib/auth-types";
 import { AuthError } from "@/lib/auth-errors";
 import { consumeOtp, saveOtp } from "@/server/auth-otp-store";
-import { logDevOtp } from "@/server/dev-otp";
+import { DEV_FIXED_OTP, isDevFixedOtpEnabled, logDevOtp, resolveOtpCode } from "@/server/dev-otp";
 
 const OTP_TTL_MS = 5 * 60 * 1000;
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
@@ -18,7 +18,15 @@ function assertValidPhone(phone: string): void {
 }
 
 function generateOtp(): string {
-  return String(Math.floor(100000 + Math.random() * 900000));
+  return resolveOtpCode();
+}
+
+function createLocalSession(phone: string): AuthSession {
+  return {
+    token: crypto.randomUUID(),
+    user: { id: phone, phone },
+    expiresAt: Date.now() + SESSION_TTL_MS,
+  };
 }
 
 async function readApiError(res: Response): Promise<string> {
@@ -91,6 +99,11 @@ export async function verifyOtpCode(phone: string, code: string): Promise<AuthSe
     };
   }
 
+  if (isDevFixedOtpEnabled() && code === DEV_FIXED_OTP) {
+    consumeOtp(phone);
+    return createLocalSession(phone);
+  }
+
   const entry = consumeOtp(phone);
   if (!entry) {
     throw new AuthError("Doğrulama kodunun süresi doldu. Yeni kod iste.", 400);
@@ -104,11 +117,7 @@ export async function verifyOtpCode(phone: string, code: string): Promise<AuthSe
     throw new AuthError("Geçersiz doğrulama kodu.", 400);
   }
 
-  return {
-    token: crypto.randomUUID(),
-    user: { id: phone, phone },
-    expiresAt: Date.now() + SESSION_TTL_MS,
-  };
+  return createLocalSession(phone);
 }
 
 export async function resolveSessionFromExternalApi(): Promise<PublicSession | null | undefined> {
