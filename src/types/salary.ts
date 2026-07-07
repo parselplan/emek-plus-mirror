@@ -1,5 +1,14 @@
 import type { LucideIcon } from "lucide-react";
 
+export type SalaryCalculatorId =
+  | "net-gross"
+  | "gross-net"
+  | "overtime"
+  | "holiday"
+  | "weekend"
+  | "severance"
+  | "notice";
+
 export interface SalaryOverview {
   estimatedNet: number;
   label: string;
@@ -15,7 +24,7 @@ export interface SalarySummaryMetric {
 }
 
 export interface SalaryCalculatorTool {
-  id: string;
+  id: SalaryCalculatorId;
   title: string;
   hint: string;
   icon: LucideIcon;
@@ -24,6 +33,7 @@ export interface SalaryCalculatorTool {
 
 export interface RecentSalaryCalculation {
   id: string;
+  calculatorId: SalaryCalculatorId;
   title: string;
   date: string;
   amount: string;

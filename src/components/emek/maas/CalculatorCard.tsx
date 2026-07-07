@@ -1,15 +1,17 @@
-import type { SalaryCalculatorTool } from "@/types/salary";
+import type { SalaryCalculatorId, SalaryCalculatorTool } from "@/types/salary";
 
 interface CalculatorCardProps {
   tool: SalaryCalculatorTool;
+  onSelect: (id: SalaryCalculatorId) => void;
 }
 
-export function CalculatorCard({ tool }: CalculatorCardProps) {
+export function CalculatorCard({ tool, onSelect }: CalculatorCardProps) {
   const Icon = tool.icon;
 
   return (
     <button
       type="button"
+      onClick={() => onSelect(tool.id)}
       className="group flex flex-col items-start gap-3 rounded-2xl border border-border/60 bg-card/50 p-4 text-left transition-all duration-200 hover:border-violet/50 hover:bg-card active:scale-[0.98]"
     >
       <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-background/60 transition-colors group-hover:bg-background">

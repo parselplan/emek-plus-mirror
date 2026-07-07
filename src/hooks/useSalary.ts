@@ -12,7 +12,7 @@ export function useSalary() {
   return useQuery<SalaryDashboardData>({
     queryKey: salaryDashboardQueryKey,
     queryFn: fetchSalaryDashboard,
-    initialData: getSalaryDashboardData,
+    initialData: getSalaryDashboardData(),
     staleTime: 60_000,
   });
 }

@@ -107,6 +107,7 @@ export const salaryCalculatorTools = [
 export const recentSalaryCalculations = [
   {
     id: "1",
+    calculatorId: "overtime" as const,
     title: "Fazla Mesai Hesabı",
     date: "5 Temmuz 2026",
     amount: formatCurrency(8_500),
@@ -115,6 +116,7 @@ export const recentSalaryCalculations = [
   },
   {
     id: "2",
+    calculatorId: "gross-net" as const,
     title: "Net Maaş Simülasyonu",
     date: "28 Haziran 2026",
     amount: formatCurrency(49_750),
@@ -123,6 +125,7 @@ export const recentSalaryCalculations = [
   },
   {
     id: "3",
+    calculatorId: "severance" as const,
     title: "Kıdem Tazminatı Ön İzleme",
     date: "12 Haziran 2026",
     amount: formatCurrency(124_800),

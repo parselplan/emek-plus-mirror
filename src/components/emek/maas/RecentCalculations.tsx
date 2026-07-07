@@ -1,15 +1,16 @@
 import { ChevronRight } from "lucide-react";
 
 import { SectionTitle } from "@/components/emek/common/SectionTitle";
-import type { RecentSalaryCalculation } from "@/types/salary";
+import type { RecentSalaryCalculation, SalaryCalculatorId } from "@/types/salary";
 
 interface RecentCalculationsProps {
   title: string;
   subtitle: string;
   items: RecentSalaryCalculation[];
+  onItemSelect: (id: SalaryCalculatorId) => void;
 }
 
-export function RecentCalculations({ title, subtitle, items }: RecentCalculationsProps) {
+export function RecentCalculations({ title, subtitle, items, onItemSelect }: RecentCalculationsProps) {
   return (
     <section className="mt-8 px-5">
       <SectionTitle title={title} subtitle={subtitle} />
@@ -20,6 +21,7 @@ export function RecentCalculations({ title, subtitle, items }: RecentCalculation
             <button
               key={calc.id}
               type="button"
+              onClick={() => onItemSelect(calc.calculatorId)}
               className="flex items-center justify-between gap-3 rounded-2xl border border-border/60 bg-card/50 p-3.5 text-left transition-colors hover:bg-card active:scale-[0.99]"
             >
               <span className="flex items-center gap-3">
