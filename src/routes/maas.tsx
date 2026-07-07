@@ -8,7 +8,6 @@ import { SalarySummary } from "@/components/emek/maas/SalarySummary";
 import { BottomNavigation } from "@/components/emek/home/BottomNavigation";
 import { useSalary } from "@/hooks/useSalary";
 import { getCurrentSession } from "@/lib/auth-fns";
-import { getSalaryDashboardData } from "@/services/salary/salary.service";
 
 export const Route = createFileRoute("/maas")({
   beforeLoad: async () => {
@@ -23,7 +22,7 @@ export const Route = createFileRoute("/maas")({
 
 function MaasPage() {
   const { data } = useSalary();
-  const dashboard = data ?? getSalaryDashboardData();
+  const dashboard = data!;
 
   return (
     <div className="app-frame pb-28">
