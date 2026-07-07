@@ -1,11 +1,11 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import { ModulePageHeader } from "@/components/emek/common/ModulePageHeader";
+import { BottomNavigation } from "@/components/emek/home/BottomNavigation";
 import { AiSalaryCard } from "@/components/emek/maas/AiSalaryCard";
 import { CalculatorGrid } from "@/components/emek/maas/CalculatorGrid";
 import { RecentCalculations } from "@/components/emek/maas/RecentCalculations";
 import { SalarySummary } from "@/components/emek/maas/SalarySummary";
-import { BottomNavigation } from "@/components/emek/home/BottomNavigation";
 import { useSalary } from "@/hooks/useSalary";
 import { getCurrentSession } from "@/lib/auth-fns";
 import { getSalaryDashboardData } from "@/services/salary/salary.service";
@@ -32,7 +32,10 @@ function MaasPage() {
         subtitle="Maaşını hesapla ve tüm gelir bilgilerini görüntüle."
       />
 
-      <SalarySummary overview={dashboard.overview} metrics={dashboard.summaryMetrics} />
+      <SalarySummary
+        overview={dashboard.overview}
+        metrics={dashboard.summaryMetrics}
+      />
 
       <CalculatorGrid
         title={dashboard.calculatorSectionTitle}
