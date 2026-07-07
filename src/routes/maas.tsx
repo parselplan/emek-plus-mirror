@@ -8,6 +8,7 @@ import { SalarySummary } from "@/components/emek/maas/SalarySummary";
 import { BottomNavigation } from "@/components/emek/home/BottomNavigation";
 import { useSalary } from "@/hooks/useSalary";
 import { getCurrentSession } from "@/lib/auth-fns";
+import { getSalaryDashboardData } from "@/services/salary/salary.service";
 
 export const Route = createFileRoute("/maas")({
   beforeLoad: async () => {
@@ -22,12 +23,12 @@ export const Route = createFileRoute("/maas")({
 
 function MaasPage() {
   const { data } = useSalary();
-  const dashboard = data!;
+  const dashboard =
+    data && typeof data === "object" && "overview" in data ? data : getSalaryDashboardData();
 
   return (
     <div className="app-frame pb-28">
       <ModulePageHeader title="Maaş" subtitle="Maaşını hesapla ve tüm gelir bilgilerini görüntüle." />
-
       <SalarySummary overview={dashboard.overview} metrics={dashboard.summaryMetrics} />
       <CalculatorGrid
         title={dashboard.calculatorSectionTitle}
@@ -40,7 +41,6 @@ function MaasPage() {
         items={dashboard.recentCalculations}
       />
       <AiSalaryCard content={dashboard.aiAssistant} />
-
       <BottomNavigation />
     </div>
   );
