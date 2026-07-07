@@ -23,24 +23,31 @@ export const Route = createFileRoute("/maas")({
 
 function MaasPage() {
   const { data } = useSalary();
-  const dashboard =
-    data && typeof data === "object" && "overview" in data ? data : getSalaryDashboardData();
+  const dashboard = data?.overview ? data : getSalaryDashboardData();
 
   return (
     <div className="app-frame pb-28">
-      <ModulePageHeader title="Maaş" subtitle="Maaşını hesapla ve tüm gelir bilgilerini görüntüle." />
+      <ModulePageHeader
+        title="Maaş"
+        subtitle="Maaşını hesapla ve tüm gelir bilgilerini görüntüle."
+      />
+
       <SalarySummary overview={dashboard.overview} metrics={dashboard.summaryMetrics} />
+
       <CalculatorGrid
         title={dashboard.calculatorSectionTitle}
         subtitle={dashboard.calculatorSectionSubtitle}
         tools={dashboard.calculatorTools}
       />
+
       <RecentCalculations
         title={dashboard.recentSectionTitle}
         subtitle={dashboard.recentSectionSubtitle}
         items={dashboard.recentCalculations}
       />
+
       <AiSalaryCard content={dashboard.aiAssistant} />
+
       <BottomNavigation />
     </div>
   );
