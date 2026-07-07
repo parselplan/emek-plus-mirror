@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Sparkles } from "lucide-react";
 
 import aiAssistant from "@/assets/ai-assistant.png";
@@ -17,12 +18,12 @@ export function AiSalaryCard({ content }: AiSalaryCardProps) {
           </p>
           <h3 className="mt-1 text-lg font-extrabold text-white">{content.title}</h3>
           <p className="mt-1 text-sm text-white/85">{content.description}</p>
-          <button
-            type="button"
-            className="mt-3 rounded-xl bg-white px-4 py-2 text-sm font-bold text-violet"
+          <Link
+            to="/asistan"
+            className="mt-3 inline-flex rounded-xl bg-white px-4 py-2 text-sm font-bold text-violet transition-opacity hover:opacity-90 active:scale-[0.98]"
           >
             {content.ctaLabel}
-          </button>
+          </Link>
         </div>
         <img
           src={aiAssistant}
