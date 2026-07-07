@@ -1,3 +1,15 @@
+export function normalizeTrPhone(value: unknown): string {
+  return String(value ?? "")
+    .replace(/"/g, "")
+    .replace(/\D/g, "")
+    .replace(/^0/, "")
+    .slice(0, 10);
+}
+
+export function isValidTrPhone(phone: string): boolean {
+  return /^5\d{9}$/.test(phone);
+}
+
 /** Türkiye cep telefonu: 5xx xxx xx xx */
 export function formatPhone(phone: string): string {
   return phone.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");

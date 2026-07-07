@@ -5,6 +5,7 @@ export const DEV_FIXED_OTP = "123456";
 
 export function isDevFixedOtpEnabled(): boolean {
   if (process.env.AUTH_API_BASE_URL?.trim()) return false;
+  if (process.env.EMEK_LOG_OTP === "true") return true;
   return process.env.NODE_ENV !== "production";
 }
 

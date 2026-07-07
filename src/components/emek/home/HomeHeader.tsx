@@ -18,7 +18,7 @@ export function HomeHeader({ displayName }: HomeHeaderProps) {
     setIsLoggingOut(true);
     try {
       await logout();
-      navigate({ to: "/login" });
+      navigate({ to: "/login", reloadDocument: true });
     } finally {
       setIsLoggingOut(false);
     }

@@ -8,9 +8,13 @@ import { Logo } from "@/components/emek/Logo";
 import { useAuth } from "@/hooks/use-auth";
 import { getCurrentSession, sendOtp, verifyOtp } from "@/lib/auth-fns";
 import { toAuthMessage } from "@/lib/auth-errors";
+import { isValidTrPhone, normalizeTrPhone } from "@/utils/formatters";
 
 const searchSchema = z.object({
-  phone: z.preprocess((v) => (v == null ? "" : String(v)), z.string()),
+  phone: z.preprocess(
+    (value) => normalizeTrPhone(value),
+    z.string().refine(isValidTrPhone, "Geçerli bir telefon numarası gir."),
+  ),
 });
 
 export const Route = createFileRoute("/otp")({
@@ -20,7 +24,7 @@ export const Route = createFileRoute("/otp")({
     if (session) {
       throw redirect({ to: "/home" });
     }
-    if (!search.phone || !/^5\d{9}$/.test(search.phone)) {
+    if (!isValidTrPhone(search.phone)) {
       throw redirect({ to: "/login" });
     }
   },
@@ -89,7 +93,7 @@ function Otp() {
       const session = await verifyOtp({ data: { phone, code: otpValue } });
       login(session);
       toast.success("Giriş başarılı!");
-      navigate({ to: "/home" });
+      navigate({ to: "/home", reloadDocument: true });
     } catch (err) {
       const message = toAuthMessage(err);
       setError(message);

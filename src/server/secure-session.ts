@@ -8,13 +8,15 @@ function getSessionConfig() {
   const password =
     process.env.SESSION_SECRET?.trim() || "dev-emek-plus-session-secret-change-in-production";
 
+  const isProduction = process.env.NODE_ENV === "production";
+
   return {
     name: "emek-auth",
     password,
     maxAge: THIRTY_DAYS_SEC,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: isProduction,
       sameSite: "lax" as const,
       path: "/",
     },
