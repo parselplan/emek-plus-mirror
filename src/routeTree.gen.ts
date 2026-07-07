@@ -10,9 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as OtpRouteImport } from './routes/otp'
+import { Route as MaasRouteImport } from './routes/maas'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as HaklarimRouteImport } from './routes/haklarim'
+import { Route as AsistanRouteImport } from './routes/asistan'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -20,9 +24,19 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OtpRoute = OtpRouteImport.update({
   id: '/otp',
   path: '/otp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaasRoute = MaasRouteImport.update({
+  id: '/maas',
+  path: '/maas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -35,6 +49,16 @@ const HomeRoute = HomeRouteImport.update({
   path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HaklarimRoute = HaklarimRouteImport.update({
+  id: '/haklarim',
+  path: '/haklarim',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AsistanRoute = AsistanRouteImport.update({
+  id: '/asistan',
+  path: '/asistan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,39 +67,83 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/asistan': typeof AsistanRoute
+  '/haklarim': typeof HaklarimRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/maas': typeof MaasRoute
   '/otp': typeof OtpRoute
+  '/profil': typeof ProfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/asistan': typeof AsistanRoute
+  '/haklarim': typeof HaklarimRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/maas': typeof MaasRoute
   '/otp': typeof OtpRoute
+  '/profil': typeof ProfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/asistan': typeof AsistanRoute
+  '/haklarim': typeof HaklarimRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/maas': typeof MaasRoute
   '/otp': typeof OtpRoute
+  '/profil': typeof ProfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/home' | '/login' | '/otp' | '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/asistan'
+    | '/haklarim'
+    | '/home'
+    | '/login'
+    | '/maas'
+    | '/otp'
+    | '/profil'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home' | '/login' | '/otp' | '/sitemap.xml'
-  id: '__root__' | '/' | '/home' | '/login' | '/otp' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/asistan'
+    | '/haklarim'
+    | '/home'
+    | '/login'
+    | '/maas'
+    | '/otp'
+    | '/profil'
+    | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/asistan'
+    | '/haklarim'
+    | '/home'
+    | '/login'
+    | '/maas'
+    | '/otp'
+    | '/profil'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AsistanRoute: typeof AsistanRoute
+  HaklarimRoute: typeof HaklarimRoute
   HomeRoute: typeof HomeRoute
   LoginRoute: typeof LoginRoute
+  MaasRoute: typeof MaasRoute
   OtpRoute: typeof OtpRoute
+  ProfilRoute: typeof ProfilRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -88,11 +156,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/otp': {
       id: '/otp'
       path: '/otp'
       fullPath: '/otp'
       preLoaderRoute: typeof OtpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maas': {
+      id: '/maas'
+      path: '/maas'
+      fullPath: '/maas'
+      preLoaderRoute: typeof MaasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -109,6 +191,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/haklarim': {
+      id: '/haklarim'
+      path: '/haklarim'
+      fullPath: '/haklarim'
+      preLoaderRoute: typeof HaklarimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/asistan': {
+      id: '/asistan'
+      path: '/asistan'
+      fullPath: '/asistan'
+      preLoaderRoute: typeof AsistanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -121,11 +217,25 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AsistanRoute: AsistanRoute,
+  HaklarimRoute: HaklarimRoute,
   HomeRoute: HomeRoute,
   LoginRoute: LoginRoute,
+  MaasRoute: MaasRoute,
   OtpRoute: OtpRoute,
+  ProfilRoute: ProfilRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

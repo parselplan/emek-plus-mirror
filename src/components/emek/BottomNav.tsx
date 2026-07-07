@@ -1,10 +1,12 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Home, Wallet, Sparkles, ShieldCheck, User } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+type NavRoute = "/home" | "/maas" | "/asistan" | "/haklarim" | "/profil";
+
 interface NavItem {
-  to: "/home";
+  to: NavRoute;
   label: string;
   icon: LucideIcon;
   center?: boolean;
@@ -12,13 +14,15 @@ interface NavItem {
 
 const items: NavItem[] = [
   { to: "/home", label: "Ana Sayfa", icon: Home },
-  { to: "/home", label: "Maaş", icon: Wallet },
-  { to: "/home", label: "Asistan", icon: Sparkles, center: true },
-  { to: "/home", label: "Haklarım", icon: ShieldCheck },
-  { to: "/home", label: "Profil", icon: User },
+  { to: "/maas", label: "Maaş", icon: Wallet },
+  { to: "/asistan", label: "Asistan", icon: Sparkles, center: true },
+  { to: "/haklarim", label: "Haklarım", icon: ShieldCheck },
+  { to: "/profil", label: "Profil", icon: User },
 ];
 
-export function BottomNav({ active = "Ana Sayfa" }: { active?: string }) {
+export function BottomNav() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+
   return (
     <nav
       className="fixed inset-x-0 bottom-0 z-40"
@@ -27,13 +31,13 @@ export function BottomNav({ active = "Ana Sayfa" }: { active?: string }) {
       <div className="app-frame min-h-0">
         <div className="mx-3 mb-3 flex items-end justify-between rounded-3xl border border-border/70 bg-popover/95 px-2 pb-2 pt-2.5 shadow-card backdrop-blur-xl">
           {items.map((item) => {
-            const isActive = item.label === active;
+            const isActive = pathname === item.to;
             const Icon = item.icon;
 
             if (item.center) {
               return (
                 <Link
-                  key={item.label}
+                  key={item.to}
                   to={item.to}
                   className="group relative -mt-8 flex flex-1 flex-col items-center gap-1"
                 >
@@ -59,7 +63,7 @@ export function BottomNav({ active = "Ana Sayfa" }: { active?: string }) {
 
             return (
               <Link
-                key={item.label}
+                key={item.to}
                 to={item.to}
                 className="flex flex-1 flex-col items-center py-1"
               >

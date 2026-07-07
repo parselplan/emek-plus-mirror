@@ -72,7 +72,7 @@ function Home() {
         features={dashboard.experienceFeatures}
       />
       <HomeFooter tagline={dashboard.footer.tagline} copyright={dashboard.footer.copyright} />
-      <BottomNavigation active="Ana Sayfa" />
+      <BottomNavigation />
     </div>
   );
 }
