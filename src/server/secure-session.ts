@@ -8,16 +8,19 @@ function getSessionConfig() {
   const password =
     process.env.SESSION_SECRET?.trim() || "dev-emek-plus-session-secret-change-in-production";
 
-  const isProduction = process.env.NODE_ENV === "production";
-
+  // The app is served over HTTPS both in the Lovable preview (inside a
+  // cross-site iframe) and in production. Cross-site iframes drop SameSite=Lax
+  // cookies, which made the session cookie disappear after OTP verification and
+  // bounced the user back to /login. SameSite=None + Secure keeps the session
+  // cookie alive inside the iframe while remaining valid in production.
   return {
     name: "emek-auth",
     password,
     maxAge: THIRTY_DAYS_SEC,
     cookie: {
       httpOnly: true,
-      secure: isProduction,
-      sameSite: "lax" as const,
+      secure: true,
+      sameSite: "none" as const,
       path: "/",
     },
   };
