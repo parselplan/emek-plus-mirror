@@ -11,7 +11,7 @@ interface SalarySummaryProps {
 export function SalarySummary({ overview, metrics }: SalarySummaryProps) {
   return (
     <section className="mt-6 px-5">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-card p-5 shadow-card">
+      <div className="animate-fade-up relative overflow-hidden rounded-3xl bg-gradient-card p-5 shadow-card">
         <div className="pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full bg-orange/20 blur-2xl" />
         <div className="pointer-events-none absolute -bottom-16 -left-10 h-36 w-36 rounded-full bg-violet/20 blur-2xl" />
 
