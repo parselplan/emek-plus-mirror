@@ -12,7 +12,7 @@ import {
   Wallet,
 } from "lucide-react";
 
-import type { SalaryDashboardData } from "@/types/salary";
+import type { SalaryCalculatorTool, SalaryDashboardData } from "@/types/salary";
 import { formatCurrency } from "@/utils/formatters";
 
 export const salaryOverview = {
@@ -52,7 +52,7 @@ export const salarySummaryMetrics = [
   },
 ];
 
-export const salaryCalculatorTools = [
+export const salaryCalculatorTools: SalaryCalculatorTool[] = [
   {
     id: "net-gross",
     title: "Netten Brüte",
