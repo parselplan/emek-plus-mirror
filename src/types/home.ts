@@ -31,6 +31,7 @@ export interface FieldSolutionItem {
   id: string;
   icon: LucideIcon;
   label: string;
+  labelLines?: [string, string];
 }
 
 export interface CampaignItem {
@@ -41,7 +42,7 @@ export interface CampaignItem {
 }
 
 export interface SectorOption {
-  id: string;
+  id: "retail" | "education" | "public";
   gradient: string;
   icon: LucideIcon;
   title: string;
@@ -126,23 +127,6 @@ export interface HomeQuickAction {
   icon: LucideIcon;
   gradient: string;
   to?: "/maas" | "/haklarim" | "/asistan";
-}
-
-/** EMEK+ Hizmetleri kısayol kartları */
-export interface EmekServiceItem {
-  id: string;
-  label: string;
-  icon: LucideIcon;
-  gradient: string;
-  to?: "/maas" | "/haklarim" | "/asistan";
-  search?: { calculator?: string };
-  comingSoon?: boolean;
-}
-
-export interface EmekServicesSection {
-  title: string;
-  subtitle: string;
-  items: EmekServiceItem[];
 }
 
 /** "Bugün Senin İçin" AI önerileri */

@@ -18,6 +18,7 @@ import { Route as HomeRouteImport } from './routes/home'
 import { Route as HaklarimRouteImport } from './routes/haklarim'
 import { Route as AsistanRouteImport } from './routes/asistan'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SektorSectorIdRouteImport } from './routes/sektor.$sectorId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -64,6 +65,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SektorSectorIdRoute = SektorSectorIdRouteImport.update({
+  id: '/sektor/$sectorId',
+  path: '/sektor/$sectorId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/otp': typeof OtpRoute
   '/profil': typeof ProfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sektor/$sectorId': typeof SektorSectorIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/otp': typeof OtpRoute
   '/profil': typeof ProfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sektor/$sectorId': typeof SektorSectorIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/otp': typeof OtpRoute
   '/profil': typeof ProfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sektor/$sectorId': typeof SektorSectorIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profil'
     | '/sitemap.xml'
+    | '/sektor/$sectorId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profil'
     | '/sitemap.xml'
+    | '/sektor/$sectorId'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profil'
     | '/sitemap.xml'
+    | '/sektor/$sectorId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   OtpRoute: typeof OtpRoute
   ProfilRoute: typeof ProfilRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SektorSectorIdRoute: typeof SektorSectorIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sektor/$sectorId': {
+      id: '/sektor/$sectorId'
+      path: '/sektor/$sectorId'
+      fullPath: '/sektor/$sectorId'
+      preLoaderRoute: typeof SektorSectorIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   OtpRoute: OtpRoute,
   ProfilRoute: ProfilRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SektorSectorIdRoute: SektorSectorIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

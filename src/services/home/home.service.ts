@@ -7,7 +7,6 @@ import {
   dashboardQuickStats,
   dashboardStatus,
   emekAiCard,
-  emekServicesSection,
   experienceFeatures,
   experienceSectionTitle,
   fieldSolutions,
@@ -41,7 +40,6 @@ export interface HomeDashboardData {
   rightsSectionTitle: string;
   rightsInfoCards: typeof rightsInfoCards;
   emekAi: typeof emekAiCard;
-  emekServices: typeof emekServicesSection;
   campaign: typeof campaignHighlight;
   campaignSectionTitle: string;
   quickActions: typeof quickActions;
@@ -74,7 +72,6 @@ export function getHomeDashboardData(): HomeDashboardData {
     rightsSectionTitle,
     rightsInfoCards,
     emekAi: emekAiCard,
-    emekServices: emekServicesSection,
     campaign: campaignHighlight,
     campaignSectionTitle,
     quickActions,
