@@ -3,6 +3,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { DashboardHeader } from "@/components/emek/home/DashboardHeader";
 import { BottomNavigation } from "@/components/emek/home/BottomNavigation";
 import { EmekAiCard } from "@/components/emek/home/EmekAiCard";
+import { EmekServicesGrid } from "@/components/emek/home/EmekServicesGrid";
 import { HomeFooter } from "@/components/emek/home/HomeFooter";
 import { HomeSkeleton } from "@/components/emek/home/HomeSkeleton";
 import { PremiumCampaign } from "@/components/emek/home/PremiumCampaign";
@@ -47,6 +48,11 @@ function Home() {
       />
       <QuickStatsRow cards={dashboard.quickStats} />
       <QuickActionsGrid actions={dashboard.homeQuickActions} />
+      <EmekServicesGrid
+        title={dashboard.emekServices.title}
+        subtitle={dashboard.emekServices.subtitle}
+        services={dashboard.emekServices.items}
+      />
       <TodayForYou suggestions={dashboard.aiSuggestions} />
       <EmekAiCard content={dashboard.emekAi} />
       <RightsScroller title={dashboard.rightsSectionTitle} cards={dashboard.rightsInfoCards} />

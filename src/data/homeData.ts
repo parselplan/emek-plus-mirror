@@ -444,3 +444,53 @@ export const emekAiCard = {
 };
 
 export const campaignSectionTitle = "Sana Özel Kampanyalar";
+
+export const emekServicesSection = {
+  title: "EMEK+ Hizmetleri",
+  subtitle: "Çalışma hayatında ihtiyaç duyabileceğin destekler.",
+  items: [
+    {
+      id: "ask-lawyer",
+      label: "Avukata Sor",
+      icon: Gavel,
+      gradient: "bg-gradient-orange",
+      to: "/asistan" as const,
+    },
+    {
+      id: "psychology",
+      label: "Psikolojik Destek",
+      icon: HeartPulse,
+      gradient: "bg-gradient-violet",
+      to: "/asistan" as const,
+    },
+    {
+      id: "overtime-track",
+      label: "Mesai Takibi",
+      icon: Clock,
+      gradient: "bg-gradient-blue",
+      to: "/maas" as const,
+      search: { calculator: "overtime" },
+    },
+    {
+      id: "rate-employer",
+      label: "İşveren Puanla",
+      icon: Star,
+      gradient: "bg-gradient-green",
+      comingSoon: true,
+    },
+    {
+      id: "discounts",
+      label: "İndirimler",
+      icon: Gift,
+      gradient: "bg-gradient-orange",
+      comingSoon: true,
+    },
+    {
+      id: "jobs",
+      label: "İş İlanları",
+      icon: Briefcase,
+      gradient: "bg-gradient-violet",
+      comingSoon: true,
+    },
+  ],
+};

@@ -128,6 +128,23 @@ export interface HomeQuickAction {
   to?: "/maas" | "/haklarim" | "/asistan";
 }
 
+/** EMEK+ Hizmetleri kısayol kartları */
+export interface EmekServiceItem {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  gradient: string;
+  to?: "/maas" | "/haklarim" | "/asistan";
+  search?: { calculator?: string };
+  comingSoon?: boolean;
+}
+
+export interface EmekServicesSection {
+  title: string;
+  subtitle: string;
+  items: EmekServiceItem[];
+}
+
 /** "Bugün Senin İçin" AI önerileri */
 export interface AiSuggestionItem {
   id: string;
