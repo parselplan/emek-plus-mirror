@@ -18,7 +18,7 @@ export function QuickStatsRow({ cards }: QuickStatsRowProps) {
             <article
               key={card.id}
               style={{ animationDelay: `${index * 70}ms` }}
-              className="group relative flex min-w-[64%] snap-start flex-col justify-between overflow-hidden rounded-3xl border border-border/60 bg-gradient-card p-4 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-border active:scale-[0.98] xs:min-w-[58%]"
+              className="group relative flex min-w-[64%] snap-start flex-col justify-between overflow-hidden rounded-3xl border border-border/60 bg-gradient-card p-4 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-border active:scale-[0.98]"
             >
               <div className="pointer-events-none absolute -right-6 -top-8 h-24 w-24 rounded-full opacity-20 blur-2xl transition-opacity duration-300 group-hover:opacity-40" />
               <div className="flex items-start justify-between">

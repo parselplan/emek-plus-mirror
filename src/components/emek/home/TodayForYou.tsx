@@ -30,7 +30,7 @@ export function TodayForYou({ suggestions }: TodayForYouProps) {
               <span
                 className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${item.gradient} shadow-card`}
               >
-                <Icon className="h-4.5 w-4.5 text-white" />
+                <Icon className="h-[18px] w-[18px] text-white" />
               </span>
               <p className="min-w-0 flex-1 text-sm font-medium leading-snug text-foreground/90">
                 {item.title}

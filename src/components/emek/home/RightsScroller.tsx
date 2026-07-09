@@ -16,7 +16,7 @@ export function RightsScroller({ title, cards }: RightsScrollerProps) {
           return (
             <article
               key={card.id}
-              className="group flex min-w-[44%] snap-start flex-col justify-between rounded-2xl border border-border/60 bg-card/50 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-border active:scale-[0.98] xs:min-w-[40%]"
+              className="group flex min-w-[44%] snap-start flex-col justify-between rounded-2xl border border-border/60 bg-card/50 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-border active:scale-[0.98]"
             >
               <span
                 className={`flex h-10 w-10 items-center justify-center rounded-xl ${card.gradient} shadow-card`}
