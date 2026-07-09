@@ -97,3 +97,53 @@ export interface DashboardWidgetSlot {
   enabled: boolean;
   priority: number;
 }
+
+/** Header altındaki mini durum kartları */
+export interface DashboardStatusItem {
+  id: string;
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  accent: string;
+}
+
+/** Premium finans hissi veren yatay durum kartları */
+export interface QuickStatCard {
+  id: string;
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  hint?: string;
+  trend?: { value: string; positive: boolean };
+  gradient: string;
+  accent: string;
+}
+
+/** Home hızlı işlem kısayolları */
+export interface HomeQuickAction {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  gradient: string;
+  to?: "/maas" | "/haklarim" | "/asistan";
+}
+
+/** "Bugün Senin İçin" AI önerileri */
+export interface AiSuggestionItem {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  accent: string;
+  gradient: string;
+}
+
+/** "Haklarını Bil" yatay kaydırmalı bilgi kartları */
+export interface RightInfoCard {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  value: string;
+  hint: string;
+  gradient: string;
+  accent: string;
+}
