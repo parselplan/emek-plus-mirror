@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Calculator } from "lucide-react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,10 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  buildDefaultCalculatorValues,
   getCalculatorConfig,
   runSalaryCalculation,
-  type CalculatorResult,
-} from "@/services/salary/salary-calculators";
+} from "@/utils/salaryCalculations";
 import type { SalaryCalculatorId } from "@/types/salary";
 import { formatCurrency } from "@/utils/formatters";
 
@@ -29,12 +28,8 @@ interface SalaryCalculatorDrawerProps {
     calculatorId: SalaryCalculatorId;
     title: string;
     amount: number;
+    inputs: Record<string, number>;
   }) => void;
-}
-
-function buildDefaultValues(calculatorId: SalaryCalculatorId): Record<string, number> {
-  const config = getCalculatorConfig(calculatorId);
-  return Object.fromEntries(config.fields.map((field) => [field.id, field.defaultValue]));
 }
 
 export function SalaryCalculatorDrawer({
@@ -44,34 +39,39 @@ export function SalaryCalculatorDrawer({
   onCalculated,
 }: SalaryCalculatorDrawerProps) {
   const [values, setValues] = useState<Record<string, number>>({});
-  const [result, setResult] = useState<CalculatorResult | null>(null);
 
   useEffect(() => {
     if (!calculatorId) return;
-    setValues(buildDefaultValues(calculatorId));
-    setResult(null);
+    setValues(buildDefaultCalculatorValues(calculatorId));
   }, [calculatorId]);
 
-  if (!calculatorId) return null;
+  const config = calculatorId ? getCalculatorConfig(calculatorId) : null;
 
-  const config = getCalculatorConfig(calculatorId);
+  const result = useMemo(() => {
+    if (!calculatorId || !config) return null;
+    const hasAllFields = config.fields.every(
+      (field) => values[field.id] !== undefined && values[field.id] >= 0,
+    );
+    if (!hasAllFields) return null;
+    return runSalaryCalculation(calculatorId, values);
+  }, [calculatorId, config, values]);
 
-  const handleCalculate = () => {
-    const hasEmptyField = config.fields.some((field) => !values[field.id] && values[field.id] !== 0);
-    if (hasEmptyField) {
-      toast.error("Lütfen tüm alanları doldur.");
-      return;
-    }
+  useEffect(() => {
+    if (!calculatorId || !config || !result) return;
 
-    const nextResult = runSalaryCalculation(calculatorId, values);
-    setResult(nextResult);
-    onCalculated?.({
-      calculatorId,
-      title: config.title,
-      amount: nextResult.primaryValue,
-    });
-    toast.success("Hesaplama tamamlandı.");
-  };
+    const timer = window.setTimeout(() => {
+      onCalculated?.({
+        calculatorId,
+        title: config.title,
+        amount: result.primaryValue,
+        inputs: values,
+      });
+    }, 500);
+
+    return () => window.clearTimeout(timer);
+  }, [calculatorId, config, onCalculated, result, values]);
+
+  if (!calculatorId || !config) return null;
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
@@ -100,7 +100,6 @@ export function SalaryCalculatorDrawer({
                       ...current,
                       [field.id]: Number.isFinite(next) ? next : 0,
                     }));
-                    setResult(null);
                   }}
                   className="h-auto border-0 bg-transparent p-0 text-base font-semibold shadow-none focus-visible:ring-0"
                 />
@@ -134,11 +133,11 @@ export function SalaryCalculatorDrawer({
         <DrawerFooter className="px-5 pb-8">
           <Button
             type="button"
-            onClick={handleCalculate}
+            onClick={() => onOpenChange(false)}
             className="h-12 w-full rounded-2xl bg-gradient-orange text-base font-bold text-orange-foreground shadow-glow-orange hover:opacity-90"
           >
             <Calculator className="h-4 w-4" />
-            Hesapla
+            Tamam
           </Button>
         </DrawerFooter>
       </DrawerContent>
