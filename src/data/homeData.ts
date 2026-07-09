@@ -41,13 +41,18 @@ import {
 
 import type {
   AiAssistantContent,
+  AiSuggestionItem,
   BenefitCardItem,
   CampaignItem,
+  DashboardStatusItem,
   DashboardWidgetSlot,
   ExperienceFeature,
   FieldSolutionItem,
+  HomeQuickAction,
   PublicSectorCardItem,
   QuickActionItem,
+  QuickStatCard,
+  RightInfoCard,
   SalarySummary,
   SectorOption,
   StatMetric,
