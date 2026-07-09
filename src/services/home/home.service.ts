@@ -1,16 +1,25 @@
 import {
   aiAssistantContent,
+  aiSuggestions,
   campaignHighlight,
+  campaignSectionTitle,
+  dashboardGreeting,
+  dashboardQuickStats,
+  dashboardStatus,
+  emekAiCard,
   experienceFeatures,
   experienceSectionTitle,
   fieldSolutions,
   fieldWorkerSectionTitle,
   homeFooter,
+  homeQuickActions,
   newBenefits,
   plannedDashboardWidgets,
   publicSectorBenefits,
   publicSectorSectionTitle,
   quickActions,
+  rightsInfoCards,
+  rightsSectionTitle,
   salarySummary,
   sectorOptions,
   sectorSectionSubtitle,
@@ -23,12 +32,21 @@ import type { DashboardWidgetSlot } from "@/types/home";
 
 export interface HomeDashboardData {
   salary: typeof salarySummary;
+  greeting: typeof dashboardGreeting;
+  status: typeof dashboardStatus;
+  quickStats: typeof dashboardQuickStats;
+  homeQuickActions: typeof homeQuickActions;
+  aiSuggestions: typeof aiSuggestions;
+  rightsSectionTitle: string;
+  rightsInfoCards: typeof rightsInfoCards;
+  emekAi: typeof emekAiCard;
+  campaign: typeof campaignHighlight;
+  campaignSectionTitle: string;
   quickActions: typeof quickActions;
   socialProofStats: typeof socialProofStats;
   supportHighlight: typeof supportHighlight;
   fieldSolutions: typeof fieldSolutions;
   fieldWorkerSectionTitle: string;
-  campaign: typeof campaignHighlight;
   sectorOptions: typeof sectorOptions;
   sectorSectionTitle: string;
   sectorSectionSubtitle: string;
@@ -46,12 +64,21 @@ export interface HomeDashboardData {
 export function getHomeDashboardData(): HomeDashboardData {
   return {
     salary: salarySummary,
+    greeting: dashboardGreeting,
+    status: dashboardStatus,
+    quickStats: dashboardQuickStats,
+    homeQuickActions,
+    aiSuggestions,
+    rightsSectionTitle,
+    rightsInfoCards,
+    emekAi: emekAiCard,
+    campaign: campaignHighlight,
+    campaignSectionTitle,
     quickActions,
     socialProofStats,
     supportHighlight,
     fieldSolutions,
     fieldWorkerSectionTitle,
-    campaign: campaignHighlight,
     sectorOptions,
     sectorSectionTitle,
     sectorSectionSubtitle,

@@ -7,9 +7,13 @@ import {
   Briefcase,
   BriefcaseBusiness,
   Calculator,
+  CalendarClock,
+  CalendarDays,
   Clock,
   Coins,
   Eye,
+  FileText,
+  FileWarning,
   Gavel,
   Gift,
   GraduationCap,
@@ -19,11 +23,14 @@ import {
   Landmark,
   Lock,
   MessageCircleQuestion,
+  Plane,
+  Receipt,
   ScrollText,
   ShieldCheck,
   ShoppingCart,
   Sparkles,
   Star,
+  Sun,
   Timer,
   TrendingUp,
   Users,
@@ -34,13 +41,18 @@ import {
 
 import type {
   AiAssistantContent,
+  AiSuggestionItem,
   BenefitCardItem,
   CampaignItem,
+  DashboardStatusItem,
   DashboardWidgetSlot,
   ExperienceFeature,
   FieldSolutionItem,
+  HomeQuickAction,
   PublicSectorCardItem,
   QuickActionItem,
+  QuickStatCard,
+  RightInfoCard,
   SalarySummary,
   SectorOption,
   StatMetric,
@@ -271,3 +283,164 @@ export const experienceSectionTitle = "Etkileyici Deneyim, Güçlü Özellikler"
 
 /** Kampanya kartı ikonu — UI'da Gift kullanılıyor */
 export { Gift as CampaignIcon };
+
+/* ============================================================
+ * PREMIUM DASHBOARD (Home yeniden tasarım) verileri
+ * ============================================================ */
+
+export const dashboardGreeting = {
+  subtitle: "Bugün çalışma günün hakkında bilmen gerekenler aşağıda.",
+};
+
+export const dashboardStatus: DashboardStatusItem[] = [
+  { id: "today-hours", icon: Clock, label: "Bugünkü Mesai", value: "6s 30dk", accent: "text-blue" },
+  { id: "month-net", icon: Wallet, label: "Tahmini Maaş", value: "₺49.750", accent: "text-green" },
+  {
+    id: "next-holiday",
+    icon: CalendarDays,
+    label: "Sonraki Tatil",
+    value: "30 Mart",
+    accent: "text-orange",
+  },
+];
+
+export const dashboardQuickStats: QuickStatCard[] = [
+  {
+    id: "estimate",
+    icon: Wallet,
+    label: "Bu Ay Tahmini Maaş",
+    value: "₺49.750",
+    hint: "Net kazanç",
+    trend: { value: "+%12", positive: true },
+    gradient: "bg-gradient-green",
+    accent: "text-green",
+  },
+  {
+    id: "overtime",
+    icon: Timer,
+    label: "Bu Ay Fazla Mesai",
+    value: "20 saat",
+    hint: "₺8.500 ek kazanç",
+    trend: { value: "+4s", positive: true },
+    gradient: "bg-gradient-orange",
+    accent: "text-orange",
+  },
+  {
+    id: "leave",
+    icon: Plane,
+    label: "Kullanılabilir İzin",
+    value: "14 gün",
+    hint: "Bu yıl kalan",
+    gradient: "bg-gradient-blue",
+    accent: "text-blue",
+  },
+  {
+    id: "seniority",
+    icon: BriefcaseBusiness,
+    label: "Kıdem Süresi",
+    value: "3 yıl 4 ay",
+    hint: "İşe giriş 2022",
+    gradient: "bg-gradient-violet",
+    accent: "text-violet",
+  },
+];
+
+export const homeQuickActions: HomeQuickAction[] = [
+  { id: "salary-calc", label: "Maaş Hesapla", icon: Calculator, gradient: "bg-gradient-orange", to: "/maas" },
+  { id: "rights", label: "Haklarımı Öğren", icon: ShieldCheck, gradient: "bg-gradient-green", to: "/haklarim" },
+  { id: "assistant", label: "AI Asistan", icon: Bot, gradient: "bg-gradient-violet", to: "/asistan" },
+  { id: "payslip", label: "Bordromu Açıkla", icon: Receipt, gradient: "bg-gradient-blue", to: "/asistan" },
+  { id: "jobs", label: "İş İlanları", icon: Briefcase, gradient: "bg-gradient-orange" },
+  { id: "documents", label: "Belgelerim", icon: FileText, gradient: "bg-gradient-violet" },
+];
+
+export const aiSuggestions: AiSuggestionItem[] = [
+  {
+    id: "holiday-overtime",
+    icon: Sun,
+    title: "Bugün resmi tatil mesaisi hakkında bilgi almak ister misin?",
+    accent: "text-orange",
+    gradient: "bg-gradient-orange",
+  },
+  {
+    id: "tax-bracket",
+    icon: TrendingUp,
+    title: "Bu ay vergi dilimin değişebilir. Detayları incele.",
+    accent: "text-violet",
+    gradient: "bg-gradient-violet",
+  },
+  {
+    id: "last-calc",
+    icon: Calculator,
+    title: "Son hesapladığın maaşı tekrar görüntüle.",
+    accent: "text-blue",
+    gradient: "bg-gradient-blue",
+  },
+];
+
+export const rightsSectionTitle = "Haklarını Bil";
+export const rightsInfoCards: RightInfoCard[] = [
+  {
+    id: "annual-leave",
+    icon: Plane,
+    title: "Yıllık İzin",
+    value: "14 gün",
+    hint: "Kalan izin hakkın",
+    gradient: "bg-gradient-blue",
+    accent: "text-blue",
+  },
+  {
+    id: "severance",
+    icon: BriefcaseBusiness,
+    title: "Kıdem",
+    value: "3 yıl 4 ay",
+    hint: "Kıdem tazminatı hakkı",
+    gradient: "bg-gradient-violet",
+    accent: "text-violet",
+  },
+  {
+    id: "notice",
+    icon: FileWarning,
+    title: "İhbar",
+    value: "8 hafta",
+    hint: "İhbar süresi hakkın",
+    gradient: "bg-gradient-orange",
+    accent: "text-orange",
+  },
+  {
+    id: "holiday",
+    icon: CalendarClock,
+    title: "Resmi Tatil",
+    value: "30 Mart",
+    hint: "Sonraki resmi tatil",
+    gradient: "bg-gradient-green",
+    accent: "text-green",
+  },
+  {
+    id: "overtime",
+    icon: Timer,
+    title: "Fazla Mesai",
+    value: "%50 zamlı",
+    hint: "Saatlik mesai ücreti",
+    gradient: "bg-gradient-orange",
+    accent: "text-orange",
+  },
+  {
+    id: "sgk",
+    icon: ShieldCheck,
+    title: "SGK",
+    value: "Aktif",
+    hint: "Sigorta durumun",
+    gradient: "bg-gradient-green",
+    accent: "text-green",
+  },
+];
+
+export const emekAiCard = {
+  eyebrow: "EMEK+ AI",
+  title: "Çalışma hayatınla ilgili her şeyi sor",
+  description: "Maaş, izin, mesai ve haklarınla ilgili anında net yanıtlar al.",
+  cta: "Asistanı Aç",
+};
+
+export const campaignSectionTitle = "Sana Özel Kampanyalar";
