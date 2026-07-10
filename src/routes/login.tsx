@@ -97,6 +97,10 @@ function Login() {
           Numaranı doğrulamak için tek kullanımlık kod göndereceğiz.
         </p>
 
+        <div className="mt-6">
+          <LoginSocialProof stats={loginSocialProof} />
+        </div>
+
         <div className="mt-auto flex flex-col gap-4 pt-10">
           <button
             type="submit"
