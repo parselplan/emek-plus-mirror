@@ -4,6 +4,8 @@ import { Phone, ArrowRight, ShieldCheck, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Logo } from "@/components/emek/Logo";
+import { LoginSocialProof } from "@/components/emek/login/LoginSocialProof";
+import { loginSocialProof } from "@/data/loginData";
 import { getCurrentSession, sendOtp } from "@/lib/auth-fns";
 import { toAuthMessage } from "@/lib/auth-errors";
 import shieldHero from "@/assets/shield-hero.jpg";
