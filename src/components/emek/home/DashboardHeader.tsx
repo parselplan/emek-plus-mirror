@@ -9,7 +9,7 @@ import type { DashboardStatusItem } from "@/types/home";
 interface DashboardHeaderProps {
   displayName: string;
   subtitle: string;
-  status: DashboardStatusItem[];
+  status?: DashboardStatusItem[];
 }
 
 export function DashboardHeader({ displayName, subtitle, status }: DashboardHeaderProps) {
