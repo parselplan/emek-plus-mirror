@@ -29,7 +29,11 @@ export const Route = createFileRoute("/sektor/$sectorId")({
 });
 
 function SektorPage() {
-  const { sectorId } = Route.useParams();
+  const { sectorId: rawSectorId } = Route.useParams();
+  if (!isSectorId(rawSectorId)) {
+    return null;
+  }
+  const sectorId = rawSectorId;
   const meta = sectorPageMeta[sectorId];
 
   return (
