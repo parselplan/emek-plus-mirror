@@ -59,24 +59,26 @@ export function DashboardHeader({ displayName, subtitle, status }: DashboardHead
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-2.5">
-        {status.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <div
-              key={item.id}
-              className="animate-fade-up rounded-2xl border border-border/60 bg-card/50 p-3 backdrop-blur-sm"
-              style={{ animationDelay: `${index * 60}ms` }}
-            >
-              <Icon className={`h-4 w-4 ${item.accent}`} />
-              <p className="mt-2 text-[13px] font-extrabold leading-none text-foreground">
-                {item.value}
-              </p>
-              <p className="mt-1 text-[10px] leading-tight text-muted-foreground">{item.label}</p>
-            </div>
-          );
-        })}
-      </div>
+      {status && status.length > 0 ? (
+        <div className="mt-4 grid grid-cols-3 gap-2.5">
+          {status.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.id}
+                className="animate-fade-up rounded-2xl border border-border/60 bg-card/50 p-3 backdrop-blur-sm"
+                style={{ animationDelay: `${index * 60}ms` }}
+              >
+                <Icon className={`h-4 w-4 ${item.accent}`} />
+                <p className="mt-2 text-[13px] font-extrabold leading-none text-foreground">
+                  {item.value}
+                </p>
+                <p className="mt-1 text-[10px] leading-tight text-muted-foreground">{item.label}</p>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </header>
   );
 }
