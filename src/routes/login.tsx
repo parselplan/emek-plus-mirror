@@ -4,6 +4,8 @@ import { Phone, ArrowRight, ShieldCheck, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Logo } from "@/components/emek/Logo";
+import { LoginSocialProof } from "@/components/emek/login/LoginSocialProof";
+import { loginSocialProof } from "@/data/loginData";
 import { getCurrentSession, sendOtp } from "@/lib/auth-fns";
 import { toAuthMessage } from "@/lib/auth-errors";
 import shieldHero from "@/assets/shield-hero.jpg";
@@ -94,6 +96,10 @@ function Login() {
           <ShieldCheck className="h-3.5 w-3.5 text-green" />
           Numaranı doğrulamak için tek kullanımlık kod göndereceğiz.
         </p>
+
+        <div className="mt-6">
+          <LoginSocialProof stats={loginSocialProof} />
+        </div>
 
         <div className="mt-auto flex flex-col gap-4 pt-10">
           <button

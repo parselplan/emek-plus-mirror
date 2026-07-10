@@ -16,6 +16,7 @@ import { Route as MaasRouteImport } from './routes/maas'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as HaklarimRouteImport } from './routes/haklarim'
+import { Route as GelisimRouteImport } from './routes/gelisim'
 import { Route as AsistanRouteImport } from './routes/asistan'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SektorSectorIdRouteImport } from './routes/sektor.$sectorId'
@@ -55,6 +56,11 @@ const HaklarimRoute = HaklarimRouteImport.update({
   path: '/haklarim',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GelisimRoute = GelisimRouteImport.update({
+  id: '/gelisim',
+  path: '/gelisim',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AsistanRoute = AsistanRouteImport.update({
   id: '/asistan',
   path: '/asistan',
@@ -74,6 +80,7 @@ const SektorSectorIdRoute = SektorSectorIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/asistan': typeof AsistanRoute
+  '/gelisim': typeof GelisimRoute
   '/haklarim': typeof HaklarimRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/asistan': typeof AsistanRoute
+  '/gelisim': typeof GelisimRoute
   '/haklarim': typeof HaklarimRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/asistan': typeof AsistanRoute
+  '/gelisim': typeof GelisimRoute
   '/haklarim': typeof HaklarimRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/asistan'
+    | '/gelisim'
     | '/haklarim'
     | '/home'
     | '/login'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/asistan'
+    | '/gelisim'
     | '/haklarim'
     | '/home'
     | '/login'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/asistan'
+    | '/gelisim'
     | '/haklarim'
     | '/home'
     | '/login'
@@ -150,6 +162,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AsistanRoute: typeof AsistanRoute
+  GelisimRoute: typeof GelisimRoute
   HaklarimRoute: typeof HaklarimRoute
   HomeRoute: typeof HomeRoute
   LoginRoute: typeof LoginRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HaklarimRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gelisim': {
+      id: '/gelisim'
+      path: '/gelisim'
+      fullPath: '/gelisim'
+      preLoaderRoute: typeof GelisimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/asistan': {
       id: '/asistan'
       path: '/asistan'
@@ -238,6 +258,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AsistanRoute: AsistanRoute,
+  GelisimRoute: GelisimRoute,
   HaklarimRoute: HaklarimRoute,
   HomeRoute: HomeRoute,
   LoginRoute: LoginRoute,
@@ -250,13 +271,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -2,15 +2,13 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import { DashboardHeader } from "@/components/emek/home/DashboardHeader";
 import { BottomNavigation } from "@/components/emek/home/BottomNavigation";
-import { EmekAiCard } from "@/components/emek/home/EmekAiCard";
+import { ExperienceFeatures } from "@/components/emek/home/ExperienceFeatures";
 import { HomeFooter } from "@/components/emek/home/HomeFooter";
 import { HomeSkeleton } from "@/components/emek/home/HomeSkeleton";
+import { PersonalDevelopmentCard } from "@/components/emek/home/PersonalDevelopmentCard";
 import { PremiumCampaign } from "@/components/emek/home/PremiumCampaign";
-import { QuickActionsGrid } from "@/components/emek/home/QuickActionsGrid";
-import { QuickStatsRow } from "@/components/emek/home/QuickStatsRow";
-import { RightsScroller } from "@/components/emek/home/RightsScroller";
 import { SectorSelection } from "@/components/emek/home/SectorSelection";
-import { TodayForYou } from "@/components/emek/home/TodayForYou";
+import { ServicesSection } from "@/components/emek/home/ServicesSection";
 import { useAuth } from "@/hooks/use-auth";
 import { useHomeDashboard } from "@/hooks/use-home-dashboard";
 import { getCurrentSession } from "@/lib/auth-fns";
@@ -41,21 +39,21 @@ function Home() {
 
   return (
     <div className="app-frame pb-28">
-      <DashboardHeader
-        displayName={displayName}
-        subtitle={dashboard.greeting.subtitle}
-        status={dashboard.status}
+      <DashboardHeader displayName={displayName} subtitle={dashboard.greeting.subtitle} />
+      <ServicesSection
+        supportBenefits={dashboard.supportBenefits}
+        newBenefits={dashboard.newBenefits}
       />
-      <QuickStatsRow cards={dashboard.quickStats} />
-      <QuickActionsGrid actions={dashboard.homeQuickActions} />
+      <PersonalDevelopmentCard />
       <SectorSelection
         title={dashboard.sectorSectionTitle}
         subtitle={dashboard.sectorSectionSubtitle}
         options={dashboard.sectorOptions}
       />
-      <TodayForYou suggestions={dashboard.aiSuggestions} />
-      <EmekAiCard content={dashboard.emekAi} />
-      <RightsScroller title={dashboard.rightsSectionTitle} cards={dashboard.rightsInfoCards} />
+      <ExperienceFeatures
+        title={dashboard.experienceSectionTitle}
+        features={dashboard.experienceFeatures}
+      />
       <PremiumCampaign title={dashboard.campaignSectionTitle} campaign={dashboard.campaign} />
       <HomeFooter tagline={dashboard.footer.tagline} copyright={dashboard.footer.copyright} />
       <BottomNavigation />
