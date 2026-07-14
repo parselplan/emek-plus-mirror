@@ -1,18 +1,12 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 
 import { ModulePageHeader } from "@/components/emek/common/ModulePageHeader";
 import { BottomNavigation } from "@/components/emek/home/BottomNavigation";
-import { PublicSectorFeatureGrid } from "@/components/emek/sektor/PublicSectorFeatureGrid";
-import { SectorActionGrid } from "@/components/emek/sektor/SectorActionGrid";
-import {
-  educationSolutions,
-  isSectorId,
-  publicSectorFeatures,
-  retailFieldSolutions,
-  sectorPageMeta,
-} from "@/data/sectorData";
+import { SectorDashboard } from "@/components/emek/sektor/SectorDashboard";
+import { isSectorId, sectorPageMeta } from "@/data/sectorData";
+import { sectorDashboards } from "@/data/sectorDashboards";
 import { getCurrentSession } from "@/lib/auth-fns";
-import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/sektor/$sectorId")({
   beforeLoad: async ({ params }) => {
@@ -35,6 +29,7 @@ function SektorPage() {
   }
   const sectorId = rawSectorId;
   const meta = sectorPageMeta[sectorId];
+  const dashboard = sectorDashboards[sectorId];
 
   return (
     <div className="app-frame pb-28">
@@ -50,25 +45,9 @@ function SektorPage() {
 
       <ModulePageHeader title={meta.title} subtitle={meta.subtitle} />
 
-      <section className="mt-6 px-5">
-        {sectorId === "retail" ? (
-          <>
-            <p className="mb-3 text-sm font-bold text-foreground">{meta.sectionTitle}</p>
-            <SectorActionGrid items={retailFieldSolutions} variant="retail" />
-          </>
-        ) : null}
-
-        {sectorId === "education" ? (
-          <>
-            <p className="mb-3 text-sm font-bold text-foreground">{meta.sectionTitle}</p>
-            <SectorActionGrid items={educationSolutions} variant="education" />
-          </>
-        ) : null}
-
-        {sectorId === "public" ? (
-          <PublicSectorFeatureGrid title={meta.sectionTitle ?? meta.title} items={publicSectorFeatures} />
-        ) : null}
-      </section>
+      <div className="mt-6">
+        <SectorDashboard data={dashboard} />
+      </div>
 
       <BottomNavigation />
     </div>
