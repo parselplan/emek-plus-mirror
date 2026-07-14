@@ -4,9 +4,9 @@ const DEFAULT_DEV_OTP_SECRET = "emek-dev-otp-local";
 export const DEV_FIXED_OTP = "123456";
 
 export function isDevFixedOtpEnabled(): boolean {
-  if (process.env.AUTH_API_BASE_URL?.trim()) return false;
-  if (process.env.EMEK_LOG_OTP === "true") return true;
-  return process.env.NODE_ENV !== "production";
+  // Harici auth API yokken her ortamda 123456 sabit kalır
+  // (Lovable/Cloudflare worker'lar arası OTP store senkron sorunu).
+  return !process.env.AUTH_API_BASE_URL?.trim();
 }
 
 export function resolveOtpCode(): string {

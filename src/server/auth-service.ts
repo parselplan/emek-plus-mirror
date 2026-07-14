@@ -1,7 +1,7 @@
 import type { AuthSession, PublicSession } from "@/lib/auth-types";
 import { AuthError } from "@/lib/auth-errors";
 import { consumeOtp, saveOtp } from "@/server/auth-otp-store";
-import { DEV_FIXED_OTP, isDevFixedOtpEnabled, logDevOtp, resolveOtpCode } from "@/server/dev-otp";
+import { DEV_FIXED_OTP, logDevOtp, resolveOtpCode } from "@/server/dev-otp";
 
 const OTP_TTL_MS = 5 * 60 * 1000;
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
@@ -99,7 +99,8 @@ export async function verifyOtpCode(phone: string, code: string): Promise<AuthSe
     };
   }
 
-  if (isDevFixedOtpEnabled() && code === DEV_FIXED_OTP) {
+  // Harici API yok: sabit 123456 her zaman geçerli.
+  if (code === DEV_FIXED_OTP) {
     consumeOtp(phone);
     return createLocalSession(phone);
   }
